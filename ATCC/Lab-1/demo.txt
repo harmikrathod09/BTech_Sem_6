@@ -1,0 +1,5 @@
+this is demo file.               this only give to purose to perform a practical.
+hello, welcome to DU
+    how are you?this is demo file 2.
+append to another file.this is demo file 2.
+append to another file.
