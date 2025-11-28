@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Records</title>
+    <style>
+        :root{font-family:Segoe UI, Roboto, Arial, sans-serif;color:#222}
+        body{display:flex;align-items:flex-start;justify-content:center;padding:32px;background:#f5f7fb}
+        .card{width:100%;max-width:760px;background:#fff;border-radius:8px;box-shadow:0 6px 18px rgba(20,30,50,0.08);padding:20px}
+        h1{margin:0 0 16px;font-size:20px}
+        form{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+        label{display:flex;flex-direction:column;font-size:12px;color:#555}
+        input[type="text"], input[type="number"]{padding:10px;border:1px solid #d7dbe6;border-radius:6px;min-width:180px}
+        .controls{display:flex;gap:8px;align-items:center}
+        button{padding:8px 12px;border-radius:6px;border:0;cursor:pointer}
+        button.primary{background:#2563eb;color:#fff}
+        button.ghost{background:#eef2ff;color:#2563eb;border:1px solid transparent}
+        button.danger{background:#ef4444;color:#fff}
+        table{width:100%;border-collapse:collapse}
+        th,td{padding:10px 8px;text-align:left;border-bottom:1px solid #eef2f6}
+        th{font-size:13px;color:#556}
+        td.actions{width:160px}
+        @media(max-width:560px){form{flex-direction:column} td.actions{width:auto}}
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Student Records CRUD</h1>
+
+        <form id="studentForm">
+            <label>
+                Name
+                <input type="text" id="name" name="name" placeholder="Enter name" required>
+            </label>
+
+            <label>
+                Age
+                <input type="number" id="age" name="age" placeholder="Enter age" min="1" required>
+            </label>
+
+            <label>
+                Course
+                <input type="text" id="course" name="course" placeholder="Enter course" required>
+            </label>
+
+            <div class="controls">
+                <button class="primary" id="submitBtn" type="submit">Add</button>
+                <button class="ghost" id="clearBtn" type="button">Clear</button>
+            </div>
+        </form>
+
+        <div id="studentRecords">
+            <table aria-label="Student records" id="recordsTable">
+                <thead>
+                    <tr><th>#</th><th>Name</th><th>Age</th><th>Course</th><th class="actions">Actions</th></tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            const students = [];
+            let editIndex = -1;
+
+            const form = document.getElementById('studentForm');
+            const nameInput = document.getElementById('name');
+            const ageInput = document.getElementById('age');
+            const courseInput = document.getElementById('course');
+            const submitBtn = document.getElementById('submitBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const tableBody = document.querySelector('#recordsTable tbody');
+
+            form.addEventListener('submit', function(e){
+                e.preventDefault();
+                const name = nameInput.value.trim();
+                const age = ageInput.value.trim();
+                const course = courseInput.value.trim();
+
+                if(!name || !age || !course){
+                    alert('Please fill all fields.');
+                    return;
+                }
+
+                if(editIndex === -1){
+                    // Add
+                    students.push({name, age, course});
+                } else {
+                    // Save edit
+                    students[editIndex] = {name, age, course};
+                    editIndex = -1;
+                    submitBtn.textContent = 'Add';
+                }
+
+                form.reset();
+                nameInput.focus();
+                renderTable();
+            });
+
+            clearBtn.addEventListener('click', function(){
+                form.reset();
+                editIndex = -1;
+                submitBtn.textContent = 'Add';
+                nameInput.focus();
+            });
+
+            tableBody.addEventListener('click', function(e){
+                const btn = e.target.closest('button');
+                if(!btn) return;
+                const action = btn.dataset.action;
+                const index = Number(btn.dataset.index);
+                if(action === 'delete'){
+                    if(confirm('Delete this record?')){
+                        students.splice(index,1);
+                        renderTable();
+                    }
+                } else if(action === 'edit'){
+                    const rec = students[index];
+                    nameInput.value = rec.name;
+                    ageInput.value = rec.age;
+                    courseInput.value = rec.course;
+                    editIndex = index;
+                    submitBtn.textContent = 'Save';
+                    nameInput.focus();
+                }
+            });
+
+            function renderTable(){
+                tableBody.innerHTML = '';
+                students.forEach((s, i) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${i+1}</td>
+                        <td>${escapeHtml(s.name)}</td>
+                        <td>${escapeHtml(s.age)}</td>
+                        <td>${escapeHtml(s.course)}</td>
+                        <td class="actions">
+                            <button data-action="edit" data-index="${i}" aria-label="Edit record ${i+1}">Edit</button>
+                            <button data-action="delete" data-index="${i}" class="danger" aria-label="Delete record ${i+1}">Delete</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            }
+
+            function escapeHtml(text){
+                return String(text)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/\"/g, '&quot;')
+                    .replace(/'/g, '&#039;');
+            }
+
+            // initial focus
+            nameInput.focus();
+        })();
+    </script>
+</body>
+</html>

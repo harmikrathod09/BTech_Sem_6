@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" name="name" placeholder="Enter name">
+    <input type="text" name="age"  placeholder="Enter age">
+    <input type="text" name="course" placeholder="Enter course">
+    <input type="submit" value="Done" >
+    
+  
+    <div id="studentRecords">
+
+    </div>
+    
+
+
+    <script>
+        {
+        let student=[];
+
+        document.querySelector('input[type="submit"]').addEventListener('click', function(event) {
+            event.preventDefault(); 
+            const name = document.querySelector('input[name="name"]').value;
+            const age = document.querySelector('input[name="age"]').value;
+            const course = document.querySelector('input[name="course"]').value;
+
+            const studentRecord = {
+                name: name,
+                age: age,
+                course: course
+            };
+
+            student.push(studentRecord);
+            console.log(student);
+
+            document.querySelector('input[name="name"]').value = '';
+            document.querySelector('input[name="age"]').value = '';
+            document.querySelector('input[name="course"]').value = '';
+        });
+
+        document.addEventListener('click', function(event) {
+            if(event.target && event.target.matches("button.delete-btn")) {
+                const index = event.target.getAttribute('data-index');
+                deleteRecord(index);
+            }
+            const recordsDiv = document.getElementById('studentRecords');
+            recordsDiv.innerHTML = '';
+
+            student.forEach((record, index) => {
+                const recordDiv = document.createElement('div');
+                recordDiv.innerHTML = `Name: ${record.name}, Age: ${record.age}, Course: ${record.course} <button onclick="deleteRecord(${index})">Delete</button> <button onclick="editRecord(${index})">edit</button>`;
+                recordsDiv.appendChild(recordDiv);
+            });
+        });
+
+        function deleteRecord(index) {
+            student.splice(index, 1);
+            console.log(student);
+            displayRecords();
+        }
+
+        function displayRecords() {
+            const recordsDiv = document.getElementById('studentRecords');
+            recordsDiv.innerHTML = '';
+
+            student.forEach((record, index) => {
+                const recordDiv = document.createElement('div');
+                recordDiv.innerHTML = `Name: ${record.name}, Age: ${record.age}, Course: ${record.course} <button onclick="deleteRecord(${index})">Delete</button> button onclick="editRecord(${index})">edit</button>`;
+                recordsDiv.appendChild(recordDiv);
+            });
+        }
+
+        function editRecord(index) {
+            const record = student[index];
+            document.querySelector('input[name="name"]').value = record.name;
+            document.querySelector('input[name="age"]').value = record.age;
+            document.querySelector('input[name="course"]').value = record.course;
+
+            deleteRecord(index);
+        }
+    }
+    </script>
+</body>
+</html>

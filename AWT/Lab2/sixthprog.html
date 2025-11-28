@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="inputField">
+    <p>Key press: <span id="keyPressed"></span></p>
+    <p>Pressed is vowel: <span id="vowelStatus"></span></p>
+
+    <script>
+        const inputField = document.getElementById('inputField');
+        const keyPressedSpan = document.getElementById('keyPressed');
+        const vowelStatusSpan = document.getElementById('vowelStatus');
+        const vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+        inputField.addEventListener('keydown', function(event) {
+            keyPressedSpan.textContent = event.key;
+            vowelStatusSpan.textContent = vowels.includes(event.key) ? "Yes" : "No";
+        });
+        let color=["red","blue","green","yellow","orange","brown"];
+        function getRandomColor() {
+            return color[Math.floor(Math.random() * color.length)];
+        }
+        inputField.addEventListener('keyup', function(event) {
+            document.body.style.backgroundColor = getRandomColor();
+        });
+        
+    </script>
+</body>
+</html>

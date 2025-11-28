@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="name" placeholder="Enter student name"><br><br>
+    <input type="date" id="dob" placeholder="Enter student dob"><br><br>
+    <input type="text" id="grade" placeholder="Enter student grade"><br><br>
+    <button type="submit">Register Student</button>
+
+    <script>
+        {
+            document.querySelector('button[type="submit"]').addEventListener('click', function(event) {
+               console.log("Student Registered");
+                console.log("Name: " + document.getElementById('name').value);
+                console.log("DOB: " + document.getElementById('dob').value);
+                console.log("Grade: " + document.getElementById('grade').value);
+            });
+        }
+    </script>
+</body>
+</html>

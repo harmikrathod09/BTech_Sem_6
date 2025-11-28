@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text">
+
+    <script>
+        {
+            document.addEventListener('keydown', function(event) {
+                console.log('Key down: ' + event.key);
+            });
+
+            document.addEventListener('keyup', function(event) {
+                console.log('Key up: ' + event.key);
+            });
+        }
+    </script>
+</body>
+</html>
