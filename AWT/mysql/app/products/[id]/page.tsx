@@ -10,24 +10,10 @@ interface Params {
 
 export default async function ProductPage({ params }: Params) {
   const { id } = await params;
-  try {
+ 
     const res = await fetch(`http://localhost:3000/api/product/${id}`, {
       cache: "no-store",
     });
-
-    if (!res.ok) {
-      return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg shadow-xl p-8 max-w-md text-center">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Product Not Found</h1>
-            <p className="text-gray-600 mb-6">The product you're looking for doesn't exist.</p>
-            <Link href="/products" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors">
-              Back to Products
-            </Link>
-          </div>
-        </div>
-      );
-    }
 
     const product: Product = await res.json();
 
@@ -97,17 +83,5 @@ export default async function ProductPage({ params }: Params) {
         </div>
       </div>
     );
-  } catch (error) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-xl p-8 max-w-md text-center">
-          <h1 className="text-2xl font-bold text-red-600 mb-2">Error Loading Product</h1>
-          <p className="text-gray-600 mb-6">Something went wrong. Please try again later.</p>
-          <Link href="/products" className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors">
-            Back to Products
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  
 }
