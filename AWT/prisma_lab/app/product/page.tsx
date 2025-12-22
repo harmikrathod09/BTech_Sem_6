@@ -1,6 +1,6 @@
 import React from 'react'
 import prisma from '../lib/prisma';
-import { product } from '../generated/prisma';
+import { product } from '../../generated/prisma';
 import Link from 'next/link';
 
 export default async function ProductPage() {
@@ -58,7 +58,7 @@ export default async function ProductPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <Link 
-                        href={`product/${p.id}`}
+                        href={`/product/${p.id}`}
                         className="text-blue-600 hover:text-blue-900 hover:underline transition-colors"
                       >
                         View Details →
