@@ -1,7 +1,7 @@
 import React from 'react'
 import prisma from '../lib/prisma';
-import { product } from '../../generated/prisma';
 import Link from 'next/link';
+import DeleteBtn from '../ui/deleteBtn';
 
 export default async function ProductPage() {
   const product = await prisma.product.findMany();
@@ -31,7 +31,10 @@ export default async function ProductPage() {
                     Price
                   </th>
                   <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
+                    view
+                  </th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    delete
                   </th>
                 </tr>
               </thead>
@@ -56,13 +59,17 @@ export default async function ProductPage() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
                       ${p.price.toString()}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex items-center justify-end gap-4">
                       <Link 
                         href={`/product/${p.id}`}
                         className="text-blue-600 hover:text-blue-900 hover:underline transition-colors"
                       >
-                        View Details →
+                        View Details
                       </Link>
+                     
+                    </td>
+                    <td>
+                       <DeleteBtn id={p.id} />
                     </td>
                   </tr>
                 ))}

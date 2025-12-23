@@ -1,5 +1,6 @@
 import prisma from '@/app/lib/prisma';
 import Link from 'next/link';
+import DeleteBtn from '@/app/ui/deleteBtn';
 import React from 'react'
 
 export default async function ProductById({ params }: { params: { id: string } }) {
@@ -103,9 +104,12 @@ export default async function ProductById({ params }: { params: { id: string } }
                             <button className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-sm">
                                 Add to Cart
                             </button>
-                            <button className="flex-1 bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors">
-                                Edit Product
-                            </button>
+                            <div className="flex-1 flex gap-4">
+                                <Link href={`/product/${product.id}/edit`} className="flex-1 inline-flex items-center justify-center bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors">
+                                    Edit Product
+                                </Link>
+                                <DeleteBtn id={product.id} />
+                            </div>
                         </div>
                     </div>
                 </div>
