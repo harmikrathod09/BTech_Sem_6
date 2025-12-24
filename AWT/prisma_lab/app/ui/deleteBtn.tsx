@@ -14,16 +14,8 @@ export default function DeleteBtn({ id }: { id: number }) {
   return (
     <button
       onClick={handleDelete}
-      className="
-        inline-flex items-center gap-2
-        rounded-md px-3 py-1.5
-        text-sm font-medium
-        text-red-600
-        border border-red-200
-        hover:bg-red-50 hover:text-red-700
-        focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1
-        transition-all duration-200
-      "
+      aria-label={`Delete product ${id}`}
+      className={`inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium text-red-600 border border-red-200 hover:bg-red-50 hover:text-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 transition-all duration-200`}
     >
       🗑️ Delete
     </button>

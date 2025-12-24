@@ -29,8 +29,8 @@ export default async function ProductById({ params }: { params: { id: string } }
     const stockColor = product.quantity > 50 ? 'text-green-600' : product.quantity > 20 ? 'text-yellow-600' : 'text-red-600';
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
+            <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto">
                 {/* Back Button */}
                 <Link 
                     href="/product" 
