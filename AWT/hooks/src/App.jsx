@@ -7,12 +7,16 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import UseEffectDemo from './lab/useeffect_demo'
 import A_props from './lab/passwith_props'
 import A_usecontext from './lab/usecontext_demo'
+import UseActionState_demo from './lab/useActionState_demo'
+import UseCallback_demo from './lab/useCallback_demo'
+import UseDebug_demo from './lab/useDebug_demo'
+import Without_opti_demo from './lab/without_opti_demo_prime'
 
 function App() {
 
   return (
     <>
-      <A_usecontext/>
+      <Without_opti_demo/>
     </>
   )
 }
