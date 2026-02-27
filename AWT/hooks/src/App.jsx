@@ -11,12 +11,17 @@ import UseActionState_demo from './lab/useActionState_demo'
 import UseCallback_demo from './lab/useCallback_demo'
 import UseDebug_demo from './lab/useDebug_demo'
 import Without_opti_demo from './lab/without_opti_demo_prime'
+import UseDeferredValueDemo from './lab/useDefferedValue_demo'
+import UseImperativeHandle from './lab/useImperativeHandle'
+import UseLayoutEffect_Demo from './lab/useLayoutEffect_demo'
+import UseMemo_demo from './lab/useMemo_demo'
+import UseOptimisticDemo from './lab/useOptimistic_demo'
 
 function App() {
 
   return (
     <>
-      <Without_opti_demo/>
+      <UseOptimisticDemo/>
     </>
   )
 }
