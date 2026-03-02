@@ -1,48 +1,42 @@
 import React, { useState, useMemo } from "react";
 
-export default function UseMemo_demo() {
-  const [count, setCount] = useState(0);
+function isPrime(num) {
+  if (num < 2) return false;
+  for (let i = 2; i * i <= num; i++) {
+    if (num % i === 0) return false;
+  }
+  return true;
+}
 
-  function isPrime(num) {
-    if (num < 2) return false;
-    for (let i = 2; i <= Math.sqrt(num); i++) {
-      if (num % i === 0) return false;
+function sumPrimes(n) {
+  let sum = 0;
+  let count = 0;
+  let num = 2;
+
+  while (count < n) {
+    if (isPrime(num)) {
+      sum += num;
+      count++;
     }
-    return true;
+    num++;
   }
 
-  function sumOfPrimes(n) {
-    let total = 0;
-    let number = 2;
-    let found = 0;
+  return sum;
+}
 
-    while (found < n) {
-      if (isPrime(number)) {
-        total += number;
-        found++;
-      }
-      number++;
-    }
+export function SumPrimesMemo() {
+  const [counter, setCounter] = useState(0);
 
-    return total;
-  }
-
-  const primeSum = useMemo(() => {
-    console.time("Prime Calculation");
-    const result = sumOfPrimes(5000);
-    console.timeEnd("Prime Calculation");
-    return result;
-  }, []);
+  const total = useMemo(() => sumPrimes(5000), []);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>useMemo Demo (First 5000 Prime Sum)</h2>
-
-      <p><strong>Prime Sum:</strong> {primeSum}</p>
-
-      <button onClick={() => setCount(count + 1)}>
-        Re-render Component ({count})
+    <div>
+      <h2>Sum of first 5000 primes: {total}</h2>
+      <button onClick={() => setCounter(counter + 1)}>
+        Increment Counter: {counter}
       </button>
+      <p>Notice: Total is NOT recalculated when counter changes.</p>
     </div>
   );
 }
+
